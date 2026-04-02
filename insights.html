@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sentinel — Insights & Climate Impact</title>
+  <meta name="description" content="Sentinel Climate Impact dashboard — ESG leaderboard, carbon exposure, climate heatmap, AI insights, and risk-return analysis." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="insights.css" />
+</head>
+<body>
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar">
+    <div class="sidebar-top">
+      <a href="index.html" class="sidebar-brand"><span class="brand-icon">◆</span><span class="brand-text">SENTINEL</span></a>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="sidebar-link"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span>Overview</span></a>
+        <a href="analysis.html" class="sidebar-link"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><span>Analysis</span></a>
+        <a href="simulator.html" class="sidebar-link"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"/><line x1="12" y1="22" x2="12" y2="15.5"/><polyline points="22 8.5 12 15.5 2 8.5"/></svg><span>Simulator</span></a>
+        <a href="guard.html" class="sidebar-link"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span>Guard</span></a>
+        <a href="insights.html" class="sidebar-link active"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg><span>Insights</span></a>
+        <a href="#" class="sidebar-link"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg><span>Settings</span></a>
+      </nav>
+    </div>
+    <div class="sidebar-bottom">
+      <div class="system-status">
+        <p class="status-heading">SYSTEM STATUS</p>
+        <div class="status-item"><span class="status-dot dot-active"></span><span class="status-label">OpenClaw</span><span class="status-value active">Active</span></div>
+        <div class="status-item"><span class="status-dot dot-online"></span><span class="status-label">ArmourIQ</span><span class="status-value online">Online</span></div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN ===== -->
+  <main class="main-content">
+    <header class="topbar">
+      <div class="topbar-left">
+        <h1 class="page-title">Insights & Climate Impact</h1>
+        <span class="page-subtitle">ESG Intelligence · Auto-refreshes every 60s</span>
+      </div>
+      <div class="topbar-right">
+        <div class="refresh-badge" id="refresh-badge"><span class="refresh-timer" id="refresh-timer">60</span>s</div>
+        <div class="live-indicator"><span class="live-dot-sm"></span><span>LIVE</span></div>
+      </div>
+    </header>
+
+    <!-- ═══ ROW 1: ESG Leaderboard + Carbon Exposure + Climate Gauge ═══ -->
+    <section class="grid-3" id="row-1">
+      <div class="card" id="card-esg-leader">
+        <div class="card-header">
+          <h2 class="card-title">ESG Score Leaderboard</h2>
+          <span class="card-tag">Top Holdings</span>
+        </div>
+        <canvas id="esg-leader-chart" class="chart-canvas"></canvas>
+      </div>
+
+      <div class="card" id="card-carbon">
+        <div class="card-header">
+          <h2 class="card-title">Sector Carbon Exposure</h2>
+          <span class="card-tag">tCO₂e/TJ</span>
+        </div>
+        <canvas id="carbon-chart" class="chart-canvas"></canvas>
+      </div>
+
+      <div class="card gauge-card" id="card-gauge">
+        <div class="card-header">
+          <h2 class="card-title">Portfolio Climate Score</h2>
+          <span class="card-tag">Composite</span>
+        </div>
+        <div class="gauge-wrap">
+          <canvas id="gauge-canvas" width="200" height="200"></canvas>
+          <div class="gauge-center">
+            <span class="gauge-value" id="gauge-value">72</span>
+            <span class="gauge-label">/ 100</span>
+          </div>
+        </div>
+        <div class="gauge-legend">
+          <span class="gl-item"><span class="gl-dot" style="background:var(--green)"></span>Low Risk</span>
+          <span class="gl-item"><span class="gl-dot" style="background:var(--amber)"></span>Medium</span>
+          <span class="gl-item"><span class="gl-dot" style="background:var(--red)"></span>High Risk</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ ROW 2: Climate Heatmap ═══ -->
+    <section class="card heatmap-card" id="card-heatmap">
+      <div class="card-header">
+        <h2 class="card-title">Holdings Climate Heatmap</h2>
+        <span class="card-tag">4×5 Grid · Hover for Details</span>
+      </div>
+      <div class="heatmap-grid" id="heatmap-grid"></div>
+      <div class="heatmap-scale">
+        <span>Low Risk</span>
+        <div class="scale-bar"></div>
+        <span>High Risk</span>
+      </div>
+    </section>
+
+    <!-- ═══ ROW 3: AI Insights + Scatter Plot ═══ -->
+    <section class="grid-2" id="row-3">
+      <div class="card" id="card-ai-insights">
+        <div class="card-header">
+          <h2 class="card-title">AI Insights</h2>
+          <span class="card-tag">Climate Intelligence</span>
+        </div>
+        <div class="insights-list" id="insights-list">
+          <div class="insight-item insight-opportunity">
+            <div class="insight-icon opp-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+            </div>
+            <div class="insight-body">
+              <span class="insight-type opp-text">Opportunity</span>
+              <p class="insight-text">NEE (NextEra Energy) ESG score has improved by 8 points over the last quarter. Clean energy revenue grew 22% YoY — consider increasing position from 4.2% to sector cap.</p>
+            </div>
+          </div>
+          <div class="insight-item insight-warning">
+            <div class="insight-icon warn-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            </div>
+            <div class="insight-body">
+              <span class="insight-type warn-text">Warning</span>
+              <p class="insight-text">Tech sector allocation at 28% is approaching the 25% moderate policy cap. Two new tech positions would trigger an ArmourIQ sector concentration alert.</p>
+            </div>
+          </div>
+          <div class="insight-item insight-risk">
+            <div class="insight-icon risk-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            </div>
+            <div class="insight-body">
+              <span class="insight-type risk-text">Risk Alert</span>
+              <p class="insight-text">Portfolio exposure to stranded assets increased to 6.3% due to indirect supply-chain links in MSFT's cloud data centers. Carbon offset verification pending.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="card-scatter">
+        <div class="card-header">
+          <h2 class="card-title">Risk vs Return</h2>
+          <span class="card-tag">Bubble = Climate Score</span>
+        </div>
+        <canvas id="scatter-chart" class="chart-canvas tall"></canvas>
+        <div class="scatter-legend" id="scatter-legend">
+          <span class="sl-item"><span class="sl-dot" style="background:var(--green)"></span>ESG ≥ 70</span>
+          <span class="sl-item"><span class="sl-dot" style="background:var(--amber)"></span>ESG 40–69</span>
+          <span class="sl-item"><span class="sl-dot" style="background:var(--red)"></span>ESG < 40</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="insights.js"></script>
+</body>
+</html>

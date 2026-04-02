@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sentinel — Guard & Policies</title>
+  <meta name="description" content="Sentinel ArmourIQ Guard — manage compliance policies, validate trades, and view enforcement logs in real time." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="guard.css" />
+</head>
+<body>
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar">
+    <div class="sidebar-top">
+      <a href="index.html" class="sidebar-brand"><span class="brand-icon">◆</span><span class="brand-text">SENTINEL</span></a>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="sidebar-link"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span>Overview</span></a>
+        <a href="analysis.html" class="sidebar-link"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><span>Analysis</span></a>
+        <a href="simulator.html" class="sidebar-link"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"/><line x1="12" y1="22" x2="12" y2="15.5"/><polyline points="22 8.5 12 15.5 2 8.5"/></svg><span>Simulator</span></a>
+        <a href="guard.html" class="sidebar-link active"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span>Guard</span></a>
+        <a href="insights.html" class="sidebar-link"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg><span>Insights</span></a>
+        <a href="#" class="sidebar-link"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg><span>Settings</span></a>
+      </nav>
+    </div>
+    <div class="sidebar-bottom">
+      <div class="system-status">
+        <p class="status-heading">SYSTEM STATUS</p>
+        <div class="status-item"><span class="status-dot dot-active"></span><span class="status-label">OpenClaw</span><span class="status-value active">Active</span></div>
+        <div class="status-item"><span class="status-dot dot-online"></span><span class="status-label">ArmourIQ</span><span class="status-value online">Online</span></div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN ===== -->
+  <main class="main-content">
+    <header class="topbar">
+      <div class="topbar-left">
+        <h1 class="page-title">Guard & Policies</h1>
+        <span class="page-subtitle">ArmourIQ — Compliance Enforcement</span>
+      </div>
+      <div class="topbar-right">
+        <div class="shield-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span>ArmourIQ</span></div>
+        <div class="live-indicator"><span class="live-dot-sm"></span><span>LIVE</span></div>
+      </div>
+    </header>
+
+    <!-- ═══ TOP ROW: Policies + Validator ═══ -->
+    <section class="grid-2" id="top-row">
+      <!-- Active Policies -->
+      <div class="card" id="card-policies">
+        <div class="card-header">
+          <h2 class="card-title">Active Policies</h2>
+          <span class="card-tag">Configuration</span>
+        </div>
+        <div class="json-block" id="json-block"><pre id="json-content"></pre></div>
+        <div class="policy-toggle-section">
+          <label class="toggle-label">Risk Profile</label>
+          <div class="toggle-group" id="risk-toggle">
+            <button class="toggle-btn" data-profile="conservative">Conservative</button>
+            <button class="toggle-btn active" data-profile="moderate">Moderate</button>
+            <button class="toggle-btn" data-profile="aggressive">Aggressive</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trade Validator -->
+      <div class="card" id="card-validator">
+        <div class="card-header">
+          <h2 class="card-title">Trade Validator</h2>
+          <span class="card-tag">ArmourIQ Check</span>
+        </div>
+        <div class="validator-inputs">
+          <div class="input-group">
+            <label class="input-label" for="v-ticker">Ticker</label>
+            <div class="input-wrap"><input type="text" id="v-ticker" class="v-input" value="XOM" maxlength="5" /></div>
+          </div>
+          <div class="input-group">
+            <label class="input-label" for="v-action">Action</label>
+            <div class="input-wrap select-wrap">
+              <select id="v-action" class="v-select">
+                <option value="BUY">BUY</option>
+                <option value="SELL">SELL</option>
+                <option value="HOLD">HOLD</option>
+              </select>
+              <span class="select-arrow">▾</span>
+            </div>
+          </div>
+          <div class="input-group">
+            <label class="input-label" for="v-amount">Amount ($)</label>
+            <div class="input-wrap"><input type="number" id="v-amount" class="v-input" value="50000" min="1000" step="1000" /></div>
+          </div>
+        </div>
+        <button class="btn-validate" id="btn-validate">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>VALIDATE TRADE</span>
+        </button>
+        <!-- Result Card -->
+        <div class="validation-result" id="validation-result"></div>
+      </div>
+    </section>
+
+    <!-- ═══ RULE ENGINE FLOW ═══ -->
+    <section class="card flow-card" id="card-flow">
+      <div class="card-header">
+        <h2 class="card-title">Rule Engine Visualization</h2>
+        <span class="card-tag">Pipeline</span>
+      </div>
+      <div class="flow-container" id="flow-container">
+        <div class="flow-nodes">
+          <div class="flow-node node-start" id="fn-request">
+            <div class="fn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
+            <span class="fn-label">Trade Request</span>
+          </div>
+          <div class="flow-arrow"><div class="arrow-line"></div><div class="arrow-head">▸</div></div>
+          <div class="flow-node" id="fn-climate">
+            <div class="fn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg></div>
+            <span class="fn-label">Climate Check</span>
+            <span class="fn-status pass">PASS</span>
+          </div>
+          <div class="flow-arrow"><div class="arrow-line"></div><div class="arrow-head">▸</div></div>
+          <div class="flow-node" id="fn-position">
+            <div class="fn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3v4M8 3v4"/></svg></div>
+            <span class="fn-label">Position Size</span>
+            <span class="fn-status pass">PASS</span>
+          </div>
+          <div class="flow-arrow"><div class="arrow-line"></div><div class="arrow-head">▸</div></div>
+          <div class="flow-node" id="fn-sector">
+            <div class="fn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 10 10"/><path d="M12 2v10h10"/></svg></div>
+            <span class="fn-label">Sector Conc.</span>
+            <span class="fn-status pass">PASS</span>
+          </div>
+          <div class="flow-arrow"><div class="arrow-line"></div><div class="arrow-head">▸</div></div>
+          <div class="flow-node" id="fn-drawdown">
+            <div class="fn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+            <span class="fn-label">Drawdown Guard</span>
+            <span class="fn-status pass">PASS</span>
+          </div>
+          <div class="flow-arrow"><div class="arrow-line"></div><div class="arrow-head">▸</div></div>
+          <div class="flow-node node-result" id="fn-result">
+            <div class="fn-icon result-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <span class="fn-label fn-result-label">APPROVED</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ ENFORCEMENT LOG ═══ -->
+    <section class="card log-card" id="card-log">
+      <div class="card-header">
+        <h2 class="card-title">Enforcement Log</h2>
+        <div class="log-filters" id="log-filters">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="approved">Approved</button>
+          <button class="filter-btn" data-filter="blocked">Blocked</button>
+          <button class="filter-btn" data-filter="modified">Modified</button>
+        </div>
+      </div>
+      <div class="log-table-wrap">
+        <table class="log-table" id="log-table">
+          <thead>
+            <tr>
+              <th>Timestamp</th>
+              <th>Asset</th>
+              <th>Action</th>
+              <th>Reason</th>
+              <th>Result</th>
+            </tr>
+          </thead>
+          <tbody id="log-tbody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="guard.js"></script>
+</body>
+</html>

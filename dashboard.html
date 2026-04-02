@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sentinel — Control Center</title>
+  <meta name="description" content="Sentinel Control Center dashboard for climate-aware autonomous investing. Monitor portfolio value, climate risk, guard actions, and AI trade decisions in real time." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="dashboard.css" />
+</head>
+<body>
+  <!-- ===== SIDEBAR ===== -->
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-top">
+      <a href="index.html" class="sidebar-brand" id="sidebar-brand">
+        <span class="brand-icon">◆</span>
+        <span class="brand-text">SENTINEL</span>
+      </a>
+
+      <nav class="sidebar-nav" id="sidebar-nav">
+        <a href="#" class="sidebar-link active" id="nav-overview" data-section="overview">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+          <span>Overview</span>
+        </a>
+        <a href="analysis.html" class="sidebar-link" id="nav-analysis" data-section="analysis">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          <span>Analysis</span>
+        </a>
+        <a href="simulator.html" class="sidebar-link" id="nav-simulator" data-section="simulator">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"/><line x1="12" y1="22" x2="12" y2="15.5"/><polyline points="22 8.5 12 15.5 2 8.5"/></svg>
+          <span>Simulator</span>
+        </a>
+        <a href="guard.html" class="sidebar-link" id="nav-guard" data-section="guard">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>Guard</span>
+        </a>
+        <a href="insights.html" class="sidebar-link" id="nav-insights" data-section="insights">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          <span>Insights</span>
+        </a>
+        <a href="#" class="sidebar-link" id="nav-settings" data-section="settings">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <span>Settings</span>
+        </a>
+      </nav>
+    </div>
+
+    <div class="sidebar-bottom">
+      <div class="system-status" id="system-status">
+        <p class="status-heading">SYSTEM STATUS</p>
+        <div class="status-item">
+          <span class="status-dot dot-active"></span>
+          <span class="status-label">OpenClaw</span>
+          <span class="status-value active">Active</span>
+        </div>
+        <div class="status-item">
+          <span class="status-dot dot-online"></span>
+          <span class="status-label">ArmourIQ</span>
+          <span class="status-value online">Online</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main id="main-content" class="main-content">
+    <!-- Top Bar -->
+    <header class="topbar" id="topbar">
+      <div class="topbar-left">
+        <h1 class="page-title" id="page-title">Control Center</h1>
+        <span class="page-subtitle">Real-time portfolio intelligence</span>
+      </div>
+      <div class="topbar-right">
+        <div class="live-indicator" id="live-indicator">
+          <span class="live-dot-sm"></span>
+          <span>LIVE</span>
+        </div>
+        <span class="topbar-time" id="topbar-time"></span>
+      </div>
+    </header>
+
+    <!-- ── METRIC CARDS (4-col) ── -->
+    <section class="grid-4" id="metrics-grid">
+      <div class="metric-card skeleton-card" id="card-portfolio">
+        <div class="metric-header">
+          <span class="metric-label">Portfolio Value</span>
+          <span class="metric-badge badge-up">↑ 12.4%</span>
+        </div>
+        <div class="metric-value" id="val-portfolio">
+          <span class="skeleton-line"></span>
+        </div>
+        <div class="metric-sub">Updated 2s ago</div>
+      </div>
+
+      <div class="metric-card skeleton-card" id="card-climate">
+        <div class="metric-header">
+          <span class="metric-label">Climate Risk Score</span>
+          <span class="metric-badge badge-warn">Medium</span>
+        </div>
+        <div class="metric-value" id="val-climate">
+          <span class="skeleton-line"></span>
+        </div>
+        <div class="metric-sub">ESG-weighted composite</div>
+      </div>
+
+      <div class="metric-card skeleton-card" id="card-sharpe">
+        <div class="metric-header">
+          <span class="metric-label">Sharpe Ratio</span>
+          <span class="metric-badge badge-up">↑ 0.14</span>
+        </div>
+        <div class="metric-value" id="val-sharpe">
+          <span class="skeleton-line"></span>
+        </div>
+        <div class="metric-sub">Risk-adjusted return</div>
+      </div>
+
+      <div class="metric-card skeleton-card" id="card-guard">
+        <div class="metric-header">
+          <span class="metric-label">Guard Actions Today</span>
+          <span class="metric-badge badge-neutral">ArmourIQ</span>
+        </div>
+        <div class="metric-value" id="val-guard">
+          <span class="skeleton-line"></span>
+        </div>
+        <div class="metric-sub">3 approved · 1 blocked</div>
+      </div>
+    </section>
+
+    <!-- ── PERFORMANCE + ALLOCATION (2/3 + 1/3) ── -->
+    <section class="grid-2-1" id="perf-section">
+      <div class="card card-chart skeleton-card" id="card-perf-chart">
+        <div class="card-header">
+          <h2 class="card-title">Monthly Performance</h2>
+          <div class="card-tabs">
+            <button class="tab active" id="tab-6m">6M</button>
+            <button class="tab" id="tab-1y">1Y</button>
+            <button class="tab" id="tab-all">ALL</button>
+          </div>
+        </div>
+        <div class="chart-container" id="chart-container">
+          <canvas id="perf-chart"></canvas>
+        </div>
+      </div>
+
+      <div class="card card-allocation skeleton-card" id="card-allocation">
+        <div class="card-header">
+          <h2 class="card-title">Allocation</h2>
+        </div>
+        <div class="allocation-list" id="allocation-list">
+          <div class="alloc-item">
+            <div class="alloc-info">
+              <span class="alloc-name">Clean Energy</span>
+              <span class="alloc-pct">42%</span>
+            </div>
+            <div class="alloc-bar"><div class="alloc-fill" style="--target-width: 42%" data-value="42"></div></div>
+          </div>
+          <div class="alloc-item">
+            <div class="alloc-info">
+              <span class="alloc-name">Tech</span>
+              <span class="alloc-pct">28%</span>
+            </div>
+            <div class="alloc-bar"><div class="alloc-fill" style="--target-width: 28%" data-value="28"></div></div>
+          </div>
+          <div class="alloc-item">
+            <div class="alloc-info">
+              <span class="alloc-name">Green Bonds</span>
+              <span class="alloc-pct">18%</span>
+            </div>
+            <div class="alloc-bar"><div class="alloc-fill" style="--target-width: 18%" data-value="18"></div></div>
+          </div>
+          <div class="alloc-item">
+            <div class="alloc-info">
+              <span class="alloc-name">Cash</span>
+              <span class="alloc-pct">12%</span>
+            </div>
+            <div class="alloc-bar"><div class="alloc-fill" style="--target-width: 12%" data-value="12"></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── TRADES + GUARD + EXPLANATION (3-col) ── -->
+    <section class="grid-3" id="decisions-section">
+      <!-- Trade Decisions -->
+      <div class="card skeleton-card" id="card-trades">
+        <div class="card-header">
+          <h2 class="card-title">Trade Decisions</h2>
+          <span class="card-badge">OpenClaw</span>
+        </div>
+        <div class="trade-list" id="trade-list">
+          <div class="trade-card trade-buy" id="trade-tsla">
+            <div class="trade-action-badge buy">BUY</div>
+            <div class="trade-info">
+              <span class="trade-ticker">TSLA</span>
+              <span class="trade-name">Tesla Inc.</span>
+            </div>
+            <div class="trade-meta">
+              <span class="trade-price">$248.50</span>
+              <span class="trade-change up">+3.2%</span>
+            </div>
+          </div>
+          <div class="trade-card trade-avoid" id="trade-xom">
+            <div class="trade-action-badge avoid">AVOID</div>
+            <div class="trade-info">
+              <span class="trade-ticker">XOM</span>
+              <span class="trade-name">ExxonMobil</span>
+            </div>
+            <div class="trade-meta">
+              <span class="trade-price">$104.20</span>
+              <span class="trade-change down">-1.8%</span>
+            </div>
+          </div>
+          <div class="trade-card trade-hold" id="trade-enph">
+            <div class="trade-action-badge hold">HOLD</div>
+            <div class="trade-info">
+              <span class="trade-ticker">ENPH</span>
+              <span class="trade-name">Enphase Energy</span>
+            </div>
+            <div class="trade-meta">
+              <span class="trade-price">$132.80</span>
+              <span class="trade-change neutral">+0.4%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Guard Results -->
+      <div class="card skeleton-card" id="card-guard-results">
+        <div class="card-header">
+          <h2 class="card-title">Guard Results</h2>
+          <span class="card-badge">ArmourIQ</span>
+        </div>
+        <div class="guard-list" id="guard-list">
+          <div class="guard-card guard-approved" id="guard-approved">
+            <div class="guard-icon-wrap approved">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div class="guard-info">
+              <span class="guard-title">TSLA — Approved</span>
+              <span class="guard-detail">Passed all ESG & risk filters</span>
+            </div>
+          </div>
+          <div class="guard-card guard-blocked" id="guard-blocked">
+            <div class="guard-icon-wrap blocked">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </div>
+            <div class="guard-info">
+              <span class="guard-title">XOM — Blocked</span>
+              <span class="guard-detail">Fossil fuel exposure exceeded limit</span>
+            </div>
+          </div>
+          <div class="guard-card guard-modified" id="guard-modified">
+            <div class="guard-icon-wrap modified">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            </div>
+            <div class="guard-info">
+              <span class="guard-title">ENPH — Modified</span>
+              <span class="guard-detail">Position size reduced to 3% cap</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Why This Decision -->
+      <div class="card skeleton-card" id="card-explanation">
+        <div class="card-header">
+          <h2 class="card-title">Why This Decision?</h2>
+          <span class="card-badge">AI Reasoning</span>
+        </div>
+        <div class="explanation-list" id="explanation-list">
+          <div class="explanation-item" id="explain-tsla">
+            <div class="explain-agent">
+              <span class="agent-dot agent-green"></span>
+              <span class="agent-name">Climate Agent</span>
+            </div>
+            <p class="explain-text">TSLA's EV manufacturing aligns with clean energy mandates. Revenue from energy storage grew 40% YoY, improving ESG composite score to 82/100.</p>
+          </div>
+          <div class="explanation-item" id="explain-xom">
+            <div class="explain-agent">
+              <span class="agent-dot agent-red"></span>
+              <span class="agent-name">Risk Agent</span>
+            </div>
+            <p class="explain-text">XOM carries a carbon intensity of 74.2 tCO₂e/TJ — exceeding our portfolio threshold of 50. Stranded asset probability is 34% by 2030.</p>
+          </div>
+          <div class="explanation-item" id="explain-enph">
+            <div class="explain-agent">
+              <span class="agent-dot agent-amber"></span>
+              <span class="agent-name">Portfolio Agent</span>
+            </div>
+            <p class="explain-text">ENPH has strong solar fundamentals but current position at 5.2% exceeds sector cap. Reduced to 3% to maintain diversification constraints.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>

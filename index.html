@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sentinel — Climate-Aware Autonomous Investing</title>
+  <meta name="description" content="Sentinel is a climate-aware autonomous investing system powered by AI agents, ArmourIQ enforcement, and ESG intelligence to protect and grow your portfolio." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- ===== NAVBAR ===== -->
+  <nav id="navbar" class="navbar">
+    <div class="navbar-inner">
+      <a href="#" class="navbar-brand" id="nav-brand">
+        <span class="brand-icon">◆</span>
+        <span class="brand-text">SENTINEL</span>
+      </a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="dashboard.html" class="nav-link active" id="nav-dashboard">Dashboard</a></li>
+        <li><a href="analysis.html" class="nav-link" id="nav-analysis">Analysis</a></li>
+        <li><a href="guard.html" class="nav-link" id="nav-guard">Guard</a></li>
+        <li><a href="insights.html" class="nav-link" id="nav-insights">Insights</a></li>
+      </ul>
+      <div class="nav-right">
+        <div class="live-badge" id="live-badge">
+          <span class="live-dot"></span>
+          <span class="live-text">LIVE</span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== HERO SECTION ===== -->
+  <section id="hero" class="hero">
+    <!-- Three.js Canvas Container -->
+    <div id="hero-canvas-container" class="hero-canvas-container"></div>
+
+    <!-- Overlay Content -->
+    <div class="hero-overlay">
+      <div class="hero-content">
+        <h1 class="hero-title" id="hero-title">SENTINEL</h1>
+        <p class="hero-subtitle" id="hero-subtitle">Climate-Aware Autonomous Investing</p>
+
+        <!-- Feature Pills -->
+        <div class="feature-pills" id="feature-pills">
+          <div class="pill" id="pill-openclaw">
+            <span class="pill-icon">⬡</span>
+            <span class="pill-label">OpenClaw Multi-Agent</span>
+          </div>
+          <div class="pill" id="pill-armouriq">
+            <span class="pill-icon">◈</span>
+            <span class="pill-label">ArmourIQ Enforcement</span>
+          </div>
+          <div class="pill" id="pill-esg">
+            <span class="pill-icon">◉</span>
+            <span class="pill-label">Climate ESG Intelligence</span>
+          </div>
+        </div>
+
+        <!-- CTA Button -->
+        <a href="dashboard.html" class="cta-button" id="cta-launch">
+          <span class="cta-text">LAUNCH DASHBOARD</span>
+          <span class="cta-arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Floating Stat Strip -->
+    <div class="stat-strip" id="stat-strip">
+      <div class="stat-strip-track">
+        <div class="stat-item"><span class="stat-accent">6</span> AI Agents</div>
+        <div class="stat-divider">·</div>
+        <div class="stat-item"><span class="stat-accent">$2.4B</span> Protected</div>
+        <div class="stat-divider">·</div>
+        <div class="stat-item"><span class="stat-accent">0</span> Policy Breaches</div>
+        <div class="stat-divider">·</div>
+        <div class="stat-item"><span class="stat-accent">99.8%</span> Uptime</div>
+        <div class="stat-divider">·</div>
+        <!-- Duplicate for seamless loop -->
+        <div class="stat-item"><span class="stat-accent">6</span> AI Agents</div>
+        <div class="stat-divider">·</div>
+        <div class="stat-item"><span class="stat-accent">$2.4B</span> Protected</div>
+        <div class="stat-divider">·</div>
+        <div class="stat-item"><span class="stat-accent">0</span> Policy Breaches</div>
+        <div class="stat-divider">·</div>
+        <div class="stat-item"><span class="stat-accent">99.8%</span> Uptime</div>
+        <div class="stat-divider">·</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
