@@ -1,0 +1,10 @@
+{
+  "name": "sentinel-dashboard",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "npx vite"
+  },
+  "devDependencies": {
+    "vite": "latest"
+  }
+}

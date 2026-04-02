@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentinel | Climate-Aware Autonomous Investing</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600;900&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        body { margin: 0; overflow-x: hidden; background: #060d06; font-family: 'Inter', sans-serif; }
+        #webgl-canvas { position: fixed; top: 0; left: 0; z-index: 0; width: 100vw; height: 100vh; pointer-events: none; }
+        
+        .overlay-nav { position: fixed; top: 0; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 2rem 4rem; z-index: 100; pointer-events: auto; }
+        .auth-buttons { display: flex; gap: 1rem; }
+        .auth-btn { padding: 10px 24px; border-radius: 30px; font-weight: 600; cursor: pointer; transition: 0.3s; font-size: 0.85rem;}
+        .btn-signin { background: transparent; border: 1px solid rgba(168, 255, 62, 0.4); color: var(--neon-lime); }
+        .btn-signin:hover { background: rgba(168, 255, 62, 0.1); border-color: var(--neon-lime); }
+        .btn-signup { background: var(--neon-lime); border: 1px solid var(--neon-lime); color: #000; box-shadow: 0 0 15px rgba(168, 255, 62, 0.4); }
+        .btn-signup:hover { transform: scale(1.05); box-shadow: 0 0 25px rgba(168, 255, 62, 0.6); }
+
+        .scroll-content { position: relative; z-index: 10; pointer-events: none; }
+        .section { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+        
+        .hero-title { font-size: clamp(60px, 8vw, 120px); font-weight: 900; letter-spacing: 0.1em; color: #fff; text-transform: uppercase; margin: 0; text-shadow: 0 0 30px rgba(168, 255, 62, 0.3); }
+        .title-char { display: inline-block; opacity: 0; transform: translateY(100px); }
+        .hero-subtitle { font-size: clamp(14px, 1.5vw, 20px); color: rgba(168,255,62,0.8); font-weight: 300; letter-spacing: 0.3em; margin-top: 10px; opacity: 0; transform: translateY(30px); }
+
+        /* Auth Modal */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); z-index: 1000; display: none; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; pointer-events: auto;}
+        .modal-overlay.active { display: flex; opacity: 1; }
+        .auth-card { background: rgba(6, 13, 6, 0.9); border: 1px solid rgba(168, 255, 62, 0.2); border-radius: 20px; padding: 3rem; width: 400px; box-shadow: 0 0 50px rgba(0,0,0,0.8), inset 0 0 20px rgba(168, 255, 62, 0.05); transform: translateY(20px); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .modal-overlay.active .auth-card { transform: translateY(0); }
+        
+        .auth-header { font-size: 1.5rem; font-weight: 800; color: #fff; margin-bottom: 2rem; text-align: center; letter-spacing: 1px; }
+        .input-group { margin-bottom: 1.5rem; text-align: left; }
+        .input-group label { display: block; font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-bottom: 8px; letter-spacing: 1px; }
+        .auth-input { width: 100%; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); padding: 12px 15px; border-radius: 8px; color: #fff; font-family: 'Inter'; font-size: 0.9rem; transition: 0.3s; }
+        .auth-input:focus { outline: none; border-color: var(--neon-lime); box-shadow: 0 0 10px rgba(168,255,62,0.2); }
+        .submit-btn { width: 100%; background: var(--neon-lime); color: #000; padding: 14px; border: none; border-radius: 8px; font-weight: 800; font-size: 1rem; cursor: pointer; margin-top: 10px; transition: 0.3s; }
+        .submit-btn:hover { box-shadow: 0 0 20px rgba(168,255,62,0.5); }
+        .close-modal { position: absolute; top: 20px; right: 20px; color: #fff; cursor: pointer; font-size: 1.5rem; opacity: 0.5; transition: 0.3s; }
+        .close-modal:hover { opacity: 1; color: var(--neon-lime); }
+        
+        /* Toggles */
+        .auth-switch { text-align: center; margin-top: 1.5rem; font-size: 0.8rem; color: rgba(255,255,255,0.5); }
+        .auth-switch span { color: var(--neon-lime); cursor: pointer; font-weight: 600; }
+        .auth-switch span:hover { text-decoration: underline; }
+
+        /* Scroll Progress */
+        .scroll-indicator { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; z-index: 50;}
+        .scroll-text { font-size: 0.6rem; letter-spacing: 0.2em; color: rgba(255,255,255,0.3); margin-bottom: 10px; }
+        .scroll-track { width: 2px; height: 60px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden; }
+        .scroll-fill { width: 100%; height: 0%; background: var(--neon-lime); }
+    </style>
+</head>
+<body>
+
+    <!-- WebGL Canvas Background -->
+    <canvas id="webgl-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="overlay-nav">
+        <div class="logo-container">
+            <div class="logo-icon">
+                <div class="orbital-ring"></div>
+                <div class="logo-dot"></div>
+            </div>
+            <span class="logo-text" style="color:#fff;">SENTINEL</span>
+        </div>
+        <div class="auth-buttons">
+            <button class="auth-btn btn-signin" onclick="openModal('login')">Sign In</button>
+            <button class="auth-btn btn-signup" onclick="openModal('signup')">Get Started</button>
+        </div>
+    </nav>
+
+    <!-- Scroll Content -->
+    <div class="scroll-content">
+        <section class="section" id="sec-0">
+            <h1 class="hero-title">SENTINEL</h1>
+            <div class="hero-subtitle">WHERE CLIMATE INTELLIGENCE MEETS</div>
+            <div class="hero-subtitle">SAFE AUTONOMOUS INVESTING</div>
+        </section>
+        <section class="section" id="sec-1">
+            <h1 class="hero-title">OPENCLAW</h1>
+            <div class="hero-subtitle">MULTI-AGENT AI REASONING</div>
+            <div class="hero-subtitle">ACROSS CLIMATE, FINANCE & SIMULATION</div>
+        </section>
+        <section class="section" id="sec-2">
+            <h1 class="hero-title">ARMOURIQ</h1>
+            <div class="hero-subtitle">REAL-TIME ENFORCEMENT</div>
+            <div class="hero-subtitle">EVERY TRADE. EVERY RISK. GUARDED.</div>
+        </section>
+    </div>
+
+    <!-- Scroll Progress -->
+    <div class="scroll-indicator">
+        <div class="scroll-text">SCROLL</div>
+        <div class="scroll-track"><div class="scroll-fill" id="scroll-fill"></div></div>
+    </div>
+
+    <!-- Auth Modal -->
+    <div class="modal-overlay" id="auth-modal">
+        <div class="auth-card" style="position: relative;">
+            <div class="close-modal" onclick="closeModal()">×</div>
+            <h2 class="auth-header" id="modal-title">Access Sentinel</h2>
+            <form id="auth-form" onsubmit="handleAuth(event)">
+                <div class="input-group" id="name-group" style="display: none;">
+                    <label>FULL NAME</label>
+                    <input type="text" class="auth-input" placeholder="e.g. Jane Doe" id="input-name">
+                </div>
+                <div class="input-group">
+                    <label>WORK EMAIL</label>
+                    <input type="email" class="auth-input" placeholder="name@company.com" required>
+                </div>
+                <div class="input-group">
+                    <label>PASSWORD</label>
+                    <input type="password" class="auth-input" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="submit-btn" id="modal-btn">Sign In to Dashboard</button>
+                <div class="auth-switch" id="modal-switch">
+                    Don't have an account? <span onclick="toggleAuthMode()">Sign up here</span>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Modal Logic
+        let currentMode = 'login';
+        
+        function openModal(mode) {
+            document.getElementById('auth-modal').classList.add('active');
+            if(mode !== currentMode) toggleAuthMode();
+        }
+
+        function closeModal() {
+            document.getElementById('auth-modal').classList.remove('active');
+        }
+
+        function toggleAuthMode() {
+            currentMode = currentMode === 'login' ? 'signup' : 'login';
+            const isLogin = currentMode === 'login';
+            
+            document.getElementById('modal-title').innerText = isLogin ? 'Access Sentinel' : 'Create Account';
+            document.getElementById('name-group').style.display = isLogin ? 'none' : 'block';
+            document.getElementById('modal-btn').innerText = isLogin ? 'Sign In to Dashboard' : 'Create Account & Proceed';
+            document.getElementById('modal-switch').innerHTML = isLogin 
+                ? `Don't have an account? <span onclick="toggleAuthMode()">Sign up here</span>`
+                : `Already have an account? <span onclick="toggleAuthMode()">Sign in</span>`;
+            
+            if(!isLogin) document.getElementById('input-name').setAttribute('required', 'true');
+            else document.getElementById('input-name').removeAttribute('required');
+        }
+
+        function handleAuth(e) {
+            e.preventDefault();
+            // Simulate Authentication Delay
+            const btn = document.getElementById('modal-btn');
+            const originalText = btn.innerText;
+            btn.innerText = 'Authenticating...';
+            btn.style.opacity = '0.7';
+            
+            setTimeout(() => {
+                // Redirect exactly to the dashboard page we just renamed
+                window.location.href = 'dashboard.html';
+            }, 800);
+        }
+
+        // GSAP Title Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        const sections = document.querySelectorAll('.section');
+        
+        sections.forEach((sec, i) => {
+            const title = sec.querySelector('.hero-title');
+            const text = title.innerText;
+            title.innerHTML = '';
+            text.split('').forEach(char => {
+                const s = document.createElement('span');
+                s.className = 'title-char';
+                s.innerText = char === ' ' ? '\u00A0' : char;
+                title.appendChild(s);
+            });
+
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: sec,
+                    start: "top center",
+                    end: "bottom center",
+                    toggleActions: "play reverse play reverse"
+                }
+            });
+
+            tl.to(sec.querySelectorAll('.title-char'), {
+                y: 0, opacity: 1, duration: 1, stagger: 0.05, ease: "power4.out"
+            });
+            tl.to(sec.querySelectorAll('.hero-subtitle'), {
+                y: 0, opacity: 1, duration: 1, stagger: 0.2, ease: "power3.out"
+            }, "-=0.8");
+        });
+
+        // Scroll Progress
+        window.addEventListener('scroll', () => {
+            const progress = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+            document.getElementById('scroll-fill').style.height = `${progress * 100}%`;
+        });
+
+        // Three.js Simplified Cosmic Background Setup
+        const canvas = document.getElementById('webgl-canvas');
+        const scene = new THREE.Scene();
+        scene.fog = new THREE.FogExp2(0x020a02, 0.001);
+
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 10000);
+        camera.position.set(0, 30, 300);
+
+        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+        // Stars
+        const starGeom = new THREE.BufferGeometry();
+        const starCount = 5000;
+        const posArray = new Float32Array(starCount * 3);
+        const colorArray = new Float32Array(starCount * 3);
+
+        for(let i=0; i<starCount; i++) {
+            posArray[i*3] = (Math.random() - 0.5) * 5000;
+            posArray[i*3+1] = (Math.random() - 0.5) * 5000;
+            posArray[i*3+2] = (Math.random() - 0.5) * 5000;
+
+            const isGreen = Math.random() > 0.5;
+            colorArray[i*3] = isGreen ? 0.6 : 1; 
+            colorArray[i*3+1] = isGreen ? 1.0 : 1;
+            colorArray[i*3+2] = isGreen ? 0.2 : 1;
+        }
+
+        starGeom.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        starGeom.setAttribute('color', new THREE.BufferAttribute(colorArray, 3));
+
+        const starMat = new THREE.PointsMaterial({ size: 2, vertexColors: true, transparent: true });
+        const starMesh = new THREE.Points(starGeom, starMat);
+        scene.add(starMesh);
+
+        // Simple Nebula Sphere
+        const nebGeom = new THREE.SphereGeometry(3000, 32, 32);
+        const nebMat = new THREE.MeshBasicMaterial({ color: 0x0a1a0a, side: THREE.BackSide, wireframe: true, transparent: true, opacity: 0.1 });
+        const nebula = new THREE.Mesh(nebGeom, nebMat);
+        scene.add(nebula);
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Animation Loop
+        const clock = new THREE.Clock();
+        function animate() {
+            requestAnimationFrame(animate);
+            const time = clock.getElapsedTime();
+            
+            starMesh.rotation.y = time * 0.05;
+            nebula.rotation.x = time * 0.02;
+            nebula.rotation.y = time * 0.03;
+
+            // Camera Parallax based on scroll
+            const t = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+            if (!isNaN(t)) {
+                gsap.to(camera.position, {
+                    z: 300 - (t * 1000), // Pushes camera deep into z over scroll
+                    y: 30 + (t * 20),
+                    duration: 0.5
+                });
+                camera.lookAt(0, 10, -600);
+            }
+
+            renderer.render(scene, camera);
+        }
+        animate();
+
+    </script>
+</body>
+</html>

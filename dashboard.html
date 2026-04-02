@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentinel | Climate-Aware Autonomous Investing System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- TOP NAVIGATION -->
+    <nav>
+        <div class="logo-container">
+            <div class="logo-icon">
+                <div class="orbital-ring"></div>
+                <div class="logo-dot"></div>
+            </div>
+            <span class="logo-text">SENTINEL</span>
+        </div>
+        
+        <div class="nav-links">
+            <a href="dashboard.html" class="active">Dashboard</a>
+            <a href="pipeline.html">Analysis Pipeline</a>
+            <a href="simulator.html">Simulator</a>
+            <a href="guard.html">Guard & Policies</a>
+            <a href="insights.html">Insights / Impact</a>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <div class="pulse-badge">
+                <div class="pulse-dot"></div>
+                ALL AGENTS ACTIVE
+            </div>
+            <a href="index.html" style="font-size: 0.75rem; font-weight: 700; color: #ff4444; border: 1px solid rgba(255,68,68,0.3); padding: 6px 12px; border-radius: 20px; transition: 0.3s; background: rgba(255,68,68,0.05); text-decoration: none; cursor: pointer;" onmouseover="this.style.background='rgba(255,68,68,0.15)'; this.style.boxShadow='0 0 10px rgba(255,68,68,0.2)';" onmouseout="this.style.background='rgba(255,68,68,0.05)'; this.style.boxShadow='none';">
+                LOGOUT
+            </a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION: USER PROFILE -->
+    <header class="hero" style="text-align: left; display: flex; align-items: center; justify-content: space-between; padding-top: 2rem; padding-bottom: 2rem;">
+        <div style="display: flex; align-items: center; gap: 1.5rem;">
+            <div style="width: 80px; height: 80px; border-radius: 50%; background: rgba(168, 255, 62, 0.1); border: 2px solid var(--neon-lime); display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 800; color: var(--neon-lime);">JD</div>
+            <div>
+                <h1 style="font-size: 2rem; margin: 0; text-transform: none; letter-spacing: 0;">Welcome back, Jane Doe</h1>
+                <p style="color: var(--muted-text); margin-top: 5px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;">Account ID: SNTL-89A4  •  Tier: Institutional Sentinel</p>
+                <div class="underline" style="margin: 10px 0 0 0; width: 60px; height: 3px;"></div>
+            </div>
+        </div>
+        <div style="text-align: right;">
+            <p style="font-size: 0.8rem; color: var(--muted-text); margin-bottom: 5px; font-weight: 600;">STATUS</p>
+            <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(0,255,136,0.1); padding: 6px 12px; border-radius: 20px; border: 1px solid rgba(0,255,136,0.3); color: #00ff88; font-size: 0.75rem; font-weight: 700;">
+                <div style="width: 8px; height: 8px; background: #00ff88; border-radius: 50%; box-shadow: 0 0 8px #00ff88;"></div>
+                FULLY VERIFIED
+            </div>
+        </div>
+    </header>
+
+    <!-- DASHBOARD MAIN GRID -->
+    <main class="dashboard-grid">
+        
+        <!-- LEFT PANEL: Inputs -->
+        <section class="glass-card rounded-2xl input-panel">
+            <h3 class="panel-title">Investment Profile</h3>
+            
+            <div class="control-group">
+                <label class="label">BUDGET ALLOCATION</label>
+                <input type="range" min="1000" max="1000000" value="284500" step="500" id="budget-slider">
+                <div style="display:flex; justify-content:space-between; margin-top:10px; font-size:0.8rem; color:var(--neon-lime)">
+                    <span>$1K</span>
+                    <span>$1M</span>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="label">RISK TOLERANCE</label>
+                <div class="risk-toggle">
+                    <button class="risk-btn">LOW</button>
+                    <button class="risk-btn active">MED</button>
+                    <button class="risk-btn">HIGH</button>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="label">CONSTRAINTS</label>
+                <div class="chips">
+                    <div class="chip active">No Fossils</div>
+                    <div class="chip active">Net-Zero Only</div>
+                    <div class="chip">Nuclear OK</div>
+                    <div class="chip">Green Bonds</div>
+                    <div class="chip">Tech-Bias</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CENTER PANEL: Portfolio -->
+        <section class="glass-card rounded-2xl portfolio-card">
+            <div class="portfolio-info">
+                <label class="label">TOTAL PORTFOLIO VALUE</label>
+                <h2>$284,500.73</h2>
+                <div class="badge-green">+14.2% (30D)</div>
+                <div style="margin-top: 1.5rem">
+                    <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px">
+                        <div style="width:12px; height:12px; border-radius:3px; background:#a8ff3e"></div>
+                        <span style="font-size:0.85rem">Tech 40%</span>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px">
+                        <div style="width:12px; height:12px; border-radius:3px; background:#00d2ff"></div>
+                        <span style="font-size:0.85rem">Energy 28%</span>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:8px">
+                        <div style="width:12px; height:12px; border-radius:3px; background:#ffd200"></div>
+                        <span style="font-size:0.85rem">ESG 32%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="donut-container">
+                <div class="glow-ring">
+                    <div class="glow-point"></div>
+                </div>
+                <!-- Simple SVG Donut -->
+                <svg width="180" height="180" viewBox="0 0 180 180">
+                    <!-- Tech -->
+                    <circle r="70" cx="90" cy="90" fill="transparent" stroke="#a8ff3e" stroke-width="15" stroke-dasharray="175.9 439.8" stroke-dashoffset="0" />
+                    <!-- Energy -->
+                    <circle r="70" cx="90" cy="90" fill="transparent" stroke="#00d2ff" stroke-width="15" stroke-dasharray="123.1 439.8" stroke-dashoffset="-175.9" />
+                    <!-- ESG -->
+                    <circle r="70" cx="90" cy="90" fill="transparent" stroke="#ffd200" stroke-width="15" stroke-dasharray="140.7 439.8" stroke-dashoffset="-299" />
+                </svg>
+            </div>
+        </section>
+
+        <!-- RIGHT PANEL: Climate Risk -->
+        <section class="glass-card rounded-2xl climate-risk-card">
+            <h3 class="panel-title">Climate Resilience</h3>
+            
+            <div class="gauge-container">
+                <svg class="gauge-svg" width="200" height="200" viewBox="0 0 200 200">
+                    <defs>
+                        <linearGradient id="gauge-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#ff4444;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#a8ff3e;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <path d="M 20 100 A 80 80 0 0 1 180 100" class="gauge-bg" />
+                    <path id="gauge-progress" d="M 20 100 A 80 80 0 0 1 180 100" class="gauge-progress" />
+                </svg>
+                <div style="position: absolute; bottom: 0; left: 0; right: 0; text-align: center;">
+                    <div class="score-value">72<span style="font-size:0.8rem; font-weight:400">/100</span></div>
+                </div>
+            </div>
+
+            <div class="armouriq-badge">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                </svg>
+                ARMOURIQ™ SHIELD ACTIVE
+            </div>
+            <p style="font-size:0.75rem; color:var(--muted-text); margin-top:1rem">Protecting assets from transition risk.</p>
+        </section>
+
+    </main>
+
+    <!-- LOWER GRID (3 COLS) -->
+    <div class="lower-grid">
+        
+        <!-- Risk Metrics -->
+        <section class="glass-card rounded-2xl sub-card">
+            <h4 class="panel-title" style="margin-bottom:1rem; font-size:0.8rem">Risk Analysis</h4>
+            <div class="metric-row">
+                <div style="font-size:0.85rem">Volatility (30D)</div>
+                <div style="font-size:1.1rem; font-weight:700">12.4%</div>
+            </div>
+            <div class="volatility-bar">
+                <div class="bar-fill" style="width:40%"></div>
+            </div>
+
+            <div class="metric-row" style="margin-top:1.5rem">
+                <div style="font-size:0.85rem">Max Drawdown</div>
+                <div style="color:#ff4444; font-weight:700">-3.2%</div>
+            </div>
+            <svg class="sparkline-svg">
+                <polyline points="0,30 20,25 40,35 60,15 80,38 100,28 120,32 140,40 160,20 180,35 200,25 220,30 240,10" fill="none" stroke="#a8ff3e" stroke-width="2" />
+            </svg>
+        </section>
+
+        <!-- Trade Insights -->
+        <section class="glass-card rounded-2xl sub-card">
+            <h4 class="panel-title" style="margin-bottom:1rem; font-size:0.8rem">Trade Recommendation</h4>
+            <div class="trade-row">
+                <div style="font-weight:700">NVDA</div>
+                <span class="trade-chip chip-buy">BUY</span>
+            </div>
+            <div class="trade-row">
+                <div style="font-weight:700">MSFT</div>
+                <span class="trade-chip chip-hold">HOLD</span>
+            </div>
+            <div class="trade-row" style="border-bottom:none">
+                <div style="font-weight:700">XOM</div>
+                <span class="trade-chip chip-avoid">AVOID</span>
+            </div>
+        </section>
+
+        <!-- Guard Result -->
+        <section class="glass-card rounded-2xl sub-card guard-status status-approved">
+            <h4 class="panel-title" style="margin-bottom:1rem; font-size:0.8rem; color:inherit">Sentinel Guard Rails</h4>
+            <div style="font-size:3rem">🛡️</div>
+            <div class="status-text">APPROVED</div>
+            <p style="font-size:0.75rem; margin-top:8px">Portfolio modification checks passed.</p>
+        </section>
+
+    </div>
+
+    <!-- EXPLANATION PANEL -->
+    <div class="glass-card rounded-2xl explanation-panel">
+        <label class="label">AI DECISION SUMMARY</label>
+        <div class="explanation-text">
+            > EXECUTING CLIMATE-AWARE REBALANCING...<br>
+            > [WHY THIS DECISION?] Portfolio concentration in fossil energy (XOM) exceeded transition risk threshold (5%). System automated rotation into ESG-weighted Tech (MSFT) to maintain risk-adjusted returns while lowering carbon intensity. 🛡️ Safe-Guard confirmed liquidity at execution time.
+        </div>
+    </div>
+
+    <!-- EXECUTION BAR -->
+    <div class="glass-card rounded-2xl execution-bar">
+        <div class="status-label">
+            <img src="https://alpaca.markets/favicon.ico" width="16" alt="AlpacaLogo">
+            <span>ALPACA SIMULATION MODE</span>
+        </div>
+        <div style="font-weight:700; color:var(--neon-lime)">
+            STATUS: Order Executed 09:41:22 EST
+        </div>
+    </div>
+
+    <!-- FOOTER: Agents -->
+    <footer>
+        <div style="display:flex; align-items:center; gap:10px">
+            <span style="font-size:0.7rem; color:var(--muted-text)">SYSTEM INTEGRITY:</span>
+            <div class="agent-dot" title="Risk Agent"></div>
+            <div class="agent-dot" title="Trade Agent"></div>
+            <div class="agent-dot" title="Governance Agent"></div>
+            <div class="agent-dot" title="Climate Agent"></div>
+            <div class="agent-dot" title="Liquidity Agent"></div>
+            <div class="agent-dot" title="Archive Agent"></div>
+        </div>
+        <div style="font-size:0.7rem; color:var(--muted-text)">© 2026 SENTINEL SYSTEMS INC.</div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

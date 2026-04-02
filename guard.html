@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guard & Policies | Sentinel</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- TOP NAVIGATION -->
+    <nav>
+        <div class="logo-container">
+            <div class="logo-icon">
+                <div class="orbital-ring"></div>
+                <div class="logo-dot"></div>
+            </div>
+            <span class="logo-text">SENTINEL</span>
+        </div>
+        
+        <div class="nav-links">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="pipeline.html">Analysis Pipeline</a>
+            <a href="simulator.html">Simulator</a>
+            <a href="guard.html" class="active">Guard & Policies</a>
+            <a href="insights.html">Insights / Impact</a>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <div class="pulse-badge">
+                <div class="pulse-dot"></div>
+                ALL AGENTS ACTIVE
+            </div>
+            <a href="index.html" style="font-size: 0.75rem; font-weight: 700; color: #ff4444; border: 1px solid rgba(255,68,68,0.3); padding: 6px 12px; border-radius: 20px; transition: 0.3s; background: rgba(255,68,68,0.05); text-decoration: none; cursor: pointer;" onmouseover="this.style.background='rgba(255,68,68,0.15)'; this.style.boxShadow='0 0 10px rgba(255,68,68,0.2)';" onmouseout="this.style.background='rgba(255,68,68,0.05)'; this.style.boxShadow='none';">
+                LOGOUT
+            </a>
+        </div>
+    </nav>
+
+    <!-- GUARD HEADER -->
+    <header class="guard-header">
+        <div class="shield-logo">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg>
+        </div>
+        <h1 style="font-size: 2.5rem; font-weight: 800; letter-spacing: 1px;">Trade Enforcement</h1>
+    </header>
+
+    <!-- MAIN GUARD LAYOUT -->
+    <main class="guard-layout">
+        
+        <!-- LEFT: Active Policies -->
+        <aside style="display:flex; flex-direction:column; gap:1.5rem;">
+            <div class="glass-card rounded-2xl sidebar-panel">
+                <h3 class="panel-title">Active Policies</h3>
+                <div class="json-block">
+{
+  <span class="json-key">"guard_layer"</span>: {
+    <span class="json-key">"enforce"</span>: <span class="json-val-bool">true</span>,
+    <span class="json-key">"max_position_size"</span>: <span class="json-val-str">"5%"</span>,
+    <span class="json-key">"climate_risk_threshold"</span>: <span class="json-val-num">65</span>,
+    <span class="json-key">"sector_blacklist"</span>: [
+      <span class="json-val-str">"Thermal Coal"</span>,
+      <span class="json-val-str">"Arctic Drilling"</span>
+    ],
+    <span class="json-key">"mandate"</span>: <span class="json-val-str">"Net-Zero 2040"</span>
+  }
+}
+                </div>
+            </div>
+
+            <div class="glass-card rounded-2xl sidebar-panel">
+                <h3 class="panel-title">Risk Profile selector</h3>
+                <div class="risk-profile-cards">
+                    <div class="risk-card">
+                        <div style="font-weight:700">Conservative</div>
+                        <div style="font-size:0.7rem; color:var(--muted-text); margin-top:4px">Strict climate compliance. Max Pos: 3%</div>
+                    </div>
+                    <div class="risk-card active" style="border-color:var(--neon-lime);">
+                        <div style="font-weight:700; color:var(--neon-lime)">Balanced</div>
+                        <div style="font-size:0.7rem; color:var(--muted-text); margin-top:4px">Standard growth. Max Pos: 5%</div>
+                    </div>
+                    <div class="risk-card">
+                        <div style="font-weight:700">Aggressive</div>
+                        <div style="font-size:0.7rem; color:var(--muted-text); margin-top:4px">Loose bounds. Max Pos: 10%</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- CENTER: Rule Engine Visualization -->
+        <section class="flowchart-container">
+            <div class="fc-node">
+                <b>Trade Signal Received</b>
+                <p>Incoming order request</p>
+            </div>
+            <div class="fc-line"></div>
+            
+            <div class="fc-diamond">
+                <div class="fc-diamond-inner">Size<br>OK?</div>
+            </div>
+            
+            <div class="fc-split">
+                <div class="fc-h-line"></div>
+                <div class="fc-branch" style="justify-content: space-between; position: absolute; width: 330px; top: -15px;">
+                    <div class="fc-label no" style="transform: translateX(-40px)">NO (>5%)</div>
+                    <div class="fc-label yes" style="transform: translateX(40px)">YES (≤5%)</div>
+                </div>
+            </div>
+            
+            <div class="fc-line"></div>
+
+            <div class="fc-diamond">
+                <div class="fc-diamond-inner">Climate<br>Risk?</div>
+            </div>
+
+            <div class="fc-split">
+                <div class="fc-h-line" style="width:200px"></div>
+                <div class="fc-branch" style="justify-content: space-between; position: absolute; width: 230px; top: -15px;">
+                    <div class="fc-label no" style="transform: translateX(-30px)">FAIL (>65)</div>
+                    <div class="fc-label yes" style="transform: translateX(30px)">PASS (≤65)</div>
+                </div>
+            </div>
+            
+            <div class="fc-line"></div>
+
+            <div class="fc-node" style="border-color: #00ff88; box-shadow: 0 0 20px rgba(0,255,136,0.1)">
+                <b style="color: #00ff88">Execute Trade</b>
+                <p>Sent to Brokerage API</p>
+            </div>
+        </section>
+
+        <!-- RIGHT: Trade Testing Tool -->
+        <aside style="display:flex; flex-direction:column; gap:1.5rem;">
+            <div class="glass-card rounded-2xl sidebar-panel">
+                <h3 class="panel-title">Trade Testing Tool</h3>
+                
+                <div class="tool-input-group">
+                    <label class="label">STOCK TICKER</label>
+                    <input type="text" class="neon-input" id="test-ticker" placeholder="e.g. MSFT" value="XOM">
+                </div>
+                
+                <div class="tool-input-group">
+                    <label class="label">QUANTITY (SHARES)</label>
+                    <input type="number" class="neon-input" id="test-qty" value="500">
+                </div>
+                
+                <div class="tool-input-group">
+                    <label class="label">PRICE (EST)</label>
+                    <input type="text" class="neon-input" value="$112.40" disabled style="opacity: 0.6">
+                </div>
+
+                <button class="btn-simulate" id="btn-validate" style="width: 100%; margin-top: 1rem; padding: 12px; font-size: 0.9rem;">Validate Trade</button>
+            </div>
+
+            <!-- Validation Results -->
+            <div id="result-approved" class="val-result-card val-approved">
+                <div class="icon-box">✅</div>
+                <div>
+                    <div style="font-weight: 800; font-size: 1.1rem; margin-bottom: 5px;">APPROVED</div>
+                    <div style="font-size: 0.75rem; color: #fff;">All policies clear. Executing order.</div>
+                </div>
+            </div>
+
+            <div id="result-blocked" class="val-result-card val-blocked">
+                <div class="icon-box">❌</div>
+                <div>
+                    <div style="font-weight: 800; font-size: 1.1rem; margin-bottom: 5px;">BLOCKED</div>
+                    <div style="font-size: 0.75rem; color: #fff;" id="blocked-reason">Climate Risk Score (89/100) exceeds threshold.</div>
+                </div>
+            </div>
+
+            <div id="result-modified" class="val-result-card val-modified">
+                <div class="icon-box">⚠️</div>
+                <div>
+                    <div style="font-weight: 800; font-size: 1.1rem; margin-bottom: 5px;">MODIFIED</div>
+                    <div style="font-size: 0.75rem; color: #fff;" id="modified-reason">Position size exceeded. Quantity reduced to 240 shares to meet 5% cap.</div>
+                </div>
+            </div>
+
+        </aside>
+    </main>
+
+    <!-- TERMINAL LOG -->
+    <div style="text-align: center; margin-bottom: 1rem;">
+        <span class="tagline-chip" style="margin-top: 0">Powered by ArmourIQ Enforcement Layer</span>
+    </div>
+    
+    <div class="terminal-log-container" id="terminal-log">
+        <div class="log-entry">
+            <span class="log-time">[09:40:02]</span>
+            <span class="log-info-text">SYSTEM STARTUP: ArmourIQ Guard Node initialized...</span>
+        </div>
+        <div class="log-entry">
+            <span class="log-time">[09:40:03]</span>
+            <span class="log-info-text">Applying Risk Profile: BALANCED. Strict limits loaded.</span>
+        </div>
+        <div class="log-entry">
+            <span class="log-time">[09:41:22]</span>
+            <span class="log-approved-text">APPROVED: MSFT — Trade size 2.1%. Climate Score 22/100 (PASS)</span>
+        </div>
+        <div class="log-entry">
+            <span class="log-time">[09:41:33]</span>
+            <span class="log-blocked-text">BLOCKED: XOM — Climate Risk Score 89/100 exceeds threshold (65)</span>
+        </div>
+    </div>
+
+    <!-- JS Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const btnValidate = document.getElementById('btn-validate');
+            const resultApproved = document.getElementById('result-approved');
+            const resultBlocked = document.getElementById('result-blocked');
+            const resultModified = document.getElementById('result-modified');
+            const terminalLog = document.getElementById('terminal-log');
+            
+            const tickerInput = document.getElementById('test-ticker');
+            const qtyInput = document.getElementById('test-qty');
+
+            const addLogEntry = (type, time, message, cssClass) => {
+                const entry = document.createElement('div');
+                entry.className = 'log-entry';
+                entry.innerHTML = `
+                    <span class="log-time">[${time}]</span>
+                    <span class="${cssClass}">${type}: ${message}</span>
+                `;
+                terminalLog.appendChild(entry);
+                terminalLog.scrollTop = terminalLog.scrollHeight;
+            };
+
+            const hideAllResults = () => {
+                resultApproved.classList.remove('show');
+                resultBlocked.classList.remove('show');
+                resultModified.classList.remove('show');
+            };
+
+            btnValidate.addEventListener('click', () => {
+                hideAllResults();
+                
+                // Button click effect Let's scale it slightly
+                btnValidate.style.transform = 'scale(0.95)';
+                setTimeout(() => { btnValidate.style.transform = 'scale(1)'; }, 100);
+
+                const ticker = tickerInput.value.toUpperCase();
+                const qty = parseInt(qtyInput.value);
+                const now = new Date();
+                const timeStr = now.toTimeString().split(' ')[0];
+
+                // Simple validation logic mockup
+                if (ticker === 'XOM' || ticker === 'CVX') {
+                    // Block
+                    setTimeout(() => {
+                        resultBlocked.classList.add('show');
+                        document.getElementById('blocked-reason').innerText = `Climate Risk Score (89/100) for ${ticker} exceeds threshold.`;
+                        addLogEntry('BLOCKED', timeStr, `${ticker} — Climate Risk Score exceeds threshold (65)`, 'log-blocked-text');
+                    }, 300);
+                } else if (qty > 400) {
+                    // Modify
+                    setTimeout(() => {
+                        resultModified.classList.add('show');
+                        document.getElementById('modified-reason').innerText = `Position size exceeded 5%. Quantity reduced from ${qty} to 350 shares.`;
+                        addLogEntry('MODIFIED', timeStr, `${ticker} — Max position size cap enforced. Quantity adjusted.`, 'log-modified-text');
+                    }, 300);
+                } else {
+                    // Approve
+                    setTimeout(() => {
+                        resultApproved.classList.add('show');
+                        addLogEntry('APPROVED', timeStr, `${ticker} — Trade passes all Guard checkpoints.`, 'log-approved-text');
+                    }, 300);
+                }
+            });
+
+            // Card selector interaction
+            const riskCards = document.querySelectorAll('.risk-card');
+            riskCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    riskCards.forEach(c => c.classList.remove('active'));
+                    card.classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
